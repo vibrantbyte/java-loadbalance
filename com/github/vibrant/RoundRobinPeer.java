@@ -29,17 +29,17 @@ public class RoundRobinPeer {
     /**
      * 每轮完成之后的权重
      */
-    private Integer currentWeight;
+    private Integer currentWeight = 0;
 
     /**
      * 活跃权重
      */
-    private Integer effectiveWeight;
+    private Integer effectiveWeight = 0;
 
     /**
      * 是否忽略
      */
-    private Boolean down;
+    private Boolean down = false;
 
 
     public RoundRobinPeer(Long serial, String name, Integer weight) {
@@ -48,6 +48,9 @@ public class RoundRobinPeer {
         this.weight = weight;
     }
 
+    public Integer getWeight() {
+        return weight;
+    }
 
     public Integer getCurrentWeight() {
         return currentWeight;
@@ -58,8 +61,14 @@ public class RoundRobinPeer {
     }
 
     public Integer getEffectiveWeight() {
-        //todo
-        return this.weight;
+        if (this.effectiveWeight == 0){
+            this.effectiveWeight = this.weight;
+        }
+        return this.effectiveWeight;
+    }
+
+    public void setEffectiveWeight(Integer effectiveWeight) {
+        this.effectiveWeight = effectiveWeight;
     }
 
     public Boolean getDown() {
@@ -68,5 +77,14 @@ public class RoundRobinPeer {
 
     public void setDown(Boolean down) {
         this.down = down;
+    }
+
+    @Override
+    public String toString() {
+        return "RoundRobinPeer{" +
+                "serial=" + serial +
+                ", name='" + name + '\'' +
+                ", effectiveWeight=" + effectiveWeight +
+                '}';
     }
 }
